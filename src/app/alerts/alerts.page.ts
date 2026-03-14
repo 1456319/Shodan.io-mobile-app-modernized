@@ -22,7 +22,6 @@ export class AlertsPage implements OnInit {
 
   getAlerts() {
     this.api.getNetworkAlerts().then((alerts) => {
-      console.log(alerts);
       this.alerts = alerts;
     })
   }
@@ -69,7 +68,6 @@ export class AlertsPage implements OnInit {
               }
             }
             this.api.createNewNetworkAlert(alert).then((value) => {
-              console.log(value);
               if ('created' in value) { // got created
                 this.alerts.push(value); // 198.20.88.0/24
               } else {
