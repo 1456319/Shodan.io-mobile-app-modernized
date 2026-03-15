@@ -20,8 +20,8 @@ jobs:
         npm install
         npm install node-sass
         sudo npm install -g ionic
-        sudo npm install -g cordova@latest
-        sudo npm install -g cordova-android@latest
+        sudo npm install -g cordova@9.0.0
+        sudo npm install -g cordova-android@8.1.0
     - name: Add Android platform
       run: |
         ionic cordova platform remove android
