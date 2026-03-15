@@ -11,7 +11,7 @@ import { NavExtrasService } from '../nav-extras.service';
 })
 export class MySearchesPage implements OnInit {
 
-  private bookmarks: any;
+  public bookmarks: any;
 
   constructor(public storage: StorageService, public alertController: AlertController, public router: Router, public navExtrasService: NavExtrasService) {
     this.bookmarks = [];

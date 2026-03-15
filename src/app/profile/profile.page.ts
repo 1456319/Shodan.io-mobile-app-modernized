@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 })
 export class ProfilePage implements OnInit {
 
-  private profile: any;
-  private info: any;
+  public profile: any;
+  public info: any;
 
   constructor(public api: ApiService, private router: Router) {
     this.profile = {

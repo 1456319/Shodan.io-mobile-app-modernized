@@ -9,7 +9,7 @@ import { ApiService } from '../api.service';
 })
 export class AlertsDetailsPage implements OnInit {
 
-  private alert: any;
+  public alert: any;
 
   constructor(public navExtrasService: NavExtrasService, public api: ApiService) {
     var alertId = navExtrasService.getItem();

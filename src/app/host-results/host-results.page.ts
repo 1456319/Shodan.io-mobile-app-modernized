@@ -12,7 +12,7 @@ import { StorageService } from '../storage.service';
 })
 export class HostResultsPage implements OnInit {
 
-  private item: any;
+  public item: any;
   public selectedPort: any;
   public loading: any;
 

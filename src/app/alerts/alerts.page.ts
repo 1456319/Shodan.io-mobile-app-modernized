@@ -11,7 +11,7 @@ import { NavExtrasService } from '../nav-extras.service';
 })
 export class AlertsPage implements OnInit {
 
-  private alerts: any;
+  public alerts: any;
   constructor(public api: ApiService, public alertController: AlertController, public router: Router, public navExtrasService: NavExtrasService) {
     this.alerts = [];
   }

@@ -12,6 +12,7 @@ import { StorageService } from './storage.service';
 export class AppComponent {
   public version = "io.shodan.app v0.0.5";
   public isDarkTheme = false;
+  public activeTheme: string = '';
   public appPages = [
     {
       title: 'Home',

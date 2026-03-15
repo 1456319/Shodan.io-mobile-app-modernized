@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AskAPIKeyPage implements OnInit {
 
-  private apiKey: string;
+  public apiKey: string;
 
   constructor(public api: ApiService, public storage: StorageService, public menuCtrl: MenuController, public alertController: AlertController, public router: Router) {
     this.apiKey = '';
