@@ -41,7 +41,7 @@ export class ApiService {
   // it only returns the total number of results that matched the query and any facet information that was requested. 
   // As a result this method does not consume query credits.
   async getHostsCount(query: string, facets: string) {
-    var tmpUrl = this.apiUrl + "/shodan/host/count" + "?key=" + this.apiKey;
+    var tmpUrl = this.apiUrl + "/shodan/host/count" + "?query=" + encodeURIComponent(query) + "&key=" + this.apiKey;
     this.http.get(tmpUrl, {}).subscribe((res) => {
     })
   }
@@ -50,7 +50,7 @@ export class ApiService {
   // Search Shodan using the same query syntax as the website and use facets to get summary information for different properties.
   // , facets: string
   async search(query: string) {
-    var tmpUrl = this.apiUrl + "/shodan/host/search?" + "query=" + query + "&key=" + this.apiKey;
+    var tmpUrl = this.apiUrl + "/shodan/host/search?" + "query=" + encodeURIComponent(query) + "&key=" + this.apiKey;
     // this.displayToastMessage("Fetching results for " + query + "...")
     return new Promise(resolve => {
       this.http.get(tmpUrl).subscribe(data => {
@@ -64,7 +64,7 @@ export class ApiService {
 
   async getMoreResults(query:string) {
     this.pageResults++;
-    var tmpUrl = this.apiUrl + "/shodan/host/search?" + "query=" + query + "&key=" + this.apiKey + "&page=" + this.pageQueries;
+    var tmpUrl = this.apiUrl + "/shodan/host/search?" + "query=" + encodeURIComponent(query) + "&key=" + this.apiKey + "&page=" + this.pageQueries;
     this.displayToastMessage("Fetching more results...");
     return new Promise(resolve => {
       this.http.get(tmpUrl).subscribe(data => {
