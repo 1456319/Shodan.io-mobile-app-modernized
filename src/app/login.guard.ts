@@ -15,7 +15,6 @@ export class LoginGuard implements CanActivate {
     state: RouterStateSnapshot): Promise<boolean> {
 
       const isComplete = await this.storage.get('apiKey');
-      console.log('isComplete = ' + isComplete);
 
       if (!isComplete || isComplete == null || isComplete === "") {
         this.router.navigateByUrl('/ask-apikey');
