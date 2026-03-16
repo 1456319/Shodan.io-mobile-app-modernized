@@ -17,11 +17,8 @@ export class MySearchesPage implements OnInit {
     this.bookmarks = [];
     this.storage.getBookmarks().then(bookmarks => {
       // this.bookmarks = bookmarks;
-      for (var key in bookmarks) {
-        this.bookmarks.push(bookmarks[key]);
-      }
-      console.log(this.bookmarks);
-    })
+      this.bookmarks = Object.values(bookmarks || {});
+    });
   }
 
   ngOnInit() {
