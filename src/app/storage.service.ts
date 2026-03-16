@@ -70,9 +70,7 @@ export class StorageService {
       }
       // key will be eg. 127.0.0.1/host or country:eu/query
       var keyBookmark = key + '/' + type;
-      console.log(keyBookmark);
       bookmarks[keyBookmark] = item;
-      console.log(bookmarks);
       this.storage.set(this.BOOKMARKS_VALUE, bookmarks);
       this.displayToastMessage('Saved ' + type + ' "' + key + '" in your bookmarks!');
     })
