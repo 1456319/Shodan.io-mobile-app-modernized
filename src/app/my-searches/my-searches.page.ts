@@ -20,7 +20,6 @@ export class MySearchesPage implements OnInit {
       for (var key in bookmarks) {
         this.bookmarks.push(bookmarks[key]);
       }
-      console.log(this.bookmarks);
     })
   }
 
