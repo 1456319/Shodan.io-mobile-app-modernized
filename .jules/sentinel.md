@@ -12,3 +12,8 @@
 **Vulnerability:** GitHub Actions workflows were using deprecated `v1` actions (`actions/checkout@v1`, `actions/cache@v1`, `actions/upload-artifact@v1`) which were causing CI pipeline failures and exposing the repo to potential supply chain vulnerabilities (e.g. lack of nodejs 20 runtime support in the runner).
 **Learning:** CI/CD components must be maintained just like application dependencies. Deprecated versions of actions frequently stop working because of underlying changes in the runner environment, or have security issues that don't get patched.
 **Prevention:** Keep Github actions up to date (e.g., v4) to ensure they receive critical security patches and maintain compatibility with modern runners. Automate dependency updates for `.github/workflows/` using tools like Dependabot.
+
+## 2024-03-20 - [MEDIUM] Third-Party Typings Blocking Compilation
+**Vulnerability:** A third-party library (`@ionic/storage`) introduced TypeScript definition errors ("An accessor cannot be declared in an ambient context") causing CI builds to fail.
+**Learning:** External dependencies can break builds due to strict type checking rules on ambient context declarations, even if the application code itself is secure and correct. This introduces a subtle supply chain maintenance risk.
+**Prevention:** Configure the compiler to skip type checking of declaration files (`"skipLibCheck": true` in `tsconfig.json`). This ensures the app compiles while acknowledging we only rely on the external library's types structurally, preventing extraneous typing strictness from breaking our CI.
