@@ -7,3 +7,8 @@
 **Vulnerability:** Found multiple instances where sensitive API data (like Shodan user profile details) and unhandled bootstrap error exceptions (which could leak stack traces or config details) were being logged using `console.log`.
 **Learning:** Developers frequently use `console.log` for debugging responses and catching initial promise rejections. In production, this can unintentionally expose sensitive information to local storage, crash reporting tools, or physical observers.
 **Prevention:** Avoid logging complete response objects (`res`) or generic error objects (`err`). Always use specific error messages or dedicated logging services that automatically scrub sensitive information.
+
+## 2024-03-20 - [MEDIUM] CI Pipeline using outdated Github Actions
+**Vulnerability:** GitHub Actions workflows were using deprecated `v1` actions (`actions/checkout@v1`, `actions/cache@v1`, `actions/upload-artifact@v1`) which were causing CI pipeline failures and exposing the repo to potential supply chain vulnerabilities (e.g. lack of nodejs 20 runtime support in the runner).
+**Learning:** CI/CD components must be maintained just like application dependencies. Deprecated versions of actions frequently stop working because of underlying changes in the runner environment, or have security issues that don't get patched.
+**Prevention:** Keep Github actions up to date (e.g., v4) to ensure they receive critical security patches and maintain compatibility with modern runners. Automate dependency updates for `.github/workflows/` using tools like Dependabot.
