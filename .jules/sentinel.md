@@ -17,3 +17,8 @@
 **Vulnerability:** A third-party library (`@ionic/storage`) introduced TypeScript definition errors ("An accessor cannot be declared in an ambient context") causing CI builds to fail.
 **Learning:** External dependencies can break builds due to strict type checking rules on ambient context declarations, even if the application code itself is secure and correct. This introduces a subtle supply chain maintenance risk.
 **Prevention:** Configure the compiler to skip type checking of declaration files (`"skipLibCheck": true` in `tsconfig.json`). This ensures the app compiles while acknowledging we only rely on the external library's types structurally, preventing extraneous typing strictness from breaking our CI.
+
+## 2024-03-20 - [MEDIUM] Runner environment incompatibility with older SDKs
+**Vulnerability:** Github actions using `ubuntu-latest` automatically upgraded the default Gradle version to one requiring Java 17+, breaking the CI build pipeline because our Android build relies on an older version of Java (JDK 8).
+**Learning:** Automatically relying on `ubuntu-latest` or `windows-latest` for legacy projects often causes unexpected downtime because underlying toolchains (like gradle, node, xcode) get aggressively updated, potentially exposing a project to unverified or incompatible tools.
+**Prevention:** Pin the runner OS to a specific, compatible LTS version (e.g., `ubuntu-20.04`) and explicitly define toolchain dependencies to maintain predictable builds and reduce supply chain instability.
