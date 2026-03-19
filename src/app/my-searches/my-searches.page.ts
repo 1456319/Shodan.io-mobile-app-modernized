@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { StorageService } from '../storage.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { NavExtrasService } from '../nav-extras.service';
   templateUrl: './my-searches.page.html',
   styleUrls: ['./my-searches.page.scss'],
 })
-export class MySearchesPage implements OnInit {
+export class MySearchesPage {
 
   private bookmarks: any;
 
@@ -22,9 +22,6 @@ export class MySearchesPage implements OnInit {
       }
       console.log(this.bookmarks);
     })
-  }
-
-  ngOnInit() {
   }
 
   async flush() {
