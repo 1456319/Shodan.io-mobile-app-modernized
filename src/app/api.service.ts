@@ -26,14 +26,7 @@ export class ApiService {
   async getHostDetails(ip: string) {
     var tmpUrl = this.apiUrl + "/shodan/host/" + ip + "?key=" + this.apiKey;
     // this.displayToastMessage("Fetching results for IP: " + ip + "...")
-    return new Promise(resolve => {
-      this.http.get(tmpUrl).subscribe(data => {
-        resolve(data);
-      },
-      err => {
-        resolve(err);
-      });
-    })
+    return this.http.get(tmpUrl).toPromise().catch(err => err);
   }
 
   // Search Shodan without Results
@@ -52,40 +45,19 @@ export class ApiService {
   async search(query: string) {
     var tmpUrl = this.apiUrl + "/shodan/host/search?" + "query=" + query + "&key=" + this.apiKey;
     // this.displayToastMessage("Fetching results for " + query + "...")
-    return new Promise(resolve => {
-      this.http.get(tmpUrl).subscribe(data => {
-        resolve(data);
-      },
-      err => {
-        resolve(err);
-      });
-    })
+    return this.http.get(tmpUrl).toPromise().catch(err => err);
   }
 
-  async getMoreResults(query:string) {
+  async getMoreResults(query: string) {
     this.pageResults++;
     var tmpUrl = this.apiUrl + "/shodan/host/search?" + "query=" + query + "&key=" + this.apiKey + "&page=" + this.pageQueries;
     this.displayToastMessage("Fetching more results...");
-    return new Promise(resolve => {
-      this.http.get(tmpUrl).subscribe(data => {
-        resolve(data);
-      },
-      err => {
-        resolve(err);
-      });
-    });    
+    return this.http.get(tmpUrl).toPromise().catch(err => err);
   }
 
   async getPorts() {
     var tmpUrl = this.apiUrl + "/shodan/ports?key=" + this.apiKey;
-    return new Promise(resolve => {
-      this.http.get(tmpUrl).subscribe(data => {
-        resolve(data);
-      },
-      err => {
-        resolve(err);
-      });
-    });
+    return this.http.get(tmpUrl).toPromise().catch(err => err);
   }
 
 
@@ -94,109 +66,56 @@ export class ApiService {
   async getQueries() {
     var tmpUrl = this.apiUrl + "/shodan/query?key=" + this.apiKey + "&sort=votes";
     this.displayToastMessage("Fetching queries...");
-    return new Promise(resolve => {
-      this.http.get(tmpUrl).subscribe(data => {
-        resolve(data);
-      },
-      err => {
-        resolve(err);
-      });
-    });
+    return this.http.get(tmpUrl).toPromise().catch(err => err);
   }
 
   async getMoreQueries() {
     this.pageQueries++;
     var tmpUrl = this.apiUrl + "/shodan/query?key=" + this.apiKey + "&sort=votes&page=" + this.pageQueries;
     // this.displayToastMessage("Fetching more queries...");
-    return new Promise(resolve => {
-      this.http.get(tmpUrl).subscribe(data => {
-        resolve(data);
-      },
-      err => {
-        resolve(err);
-      });
-    });    
+    return this.http.get(tmpUrl).toPromise().catch(err => err);
   }
 
   async getNetworkAlerts() {
     var tmpUrl = this.apiUrl + "/shodan/alert/info?key=" + this.apiKey;
     this.displayToastMessage("Fetching network alerts...");
-    return new Promise(resolve => {
-      this.http.get(tmpUrl).subscribe(data => {
-        resolve(data);
-      },
-      err => {
-        resolve(err);
-      })
-    });
+    return this.http.get(tmpUrl).toPromise().catch(err => err);
   }
 
   async createNewNetworkAlert(data) {
     let alert = JSON.stringify(data);
     var tmpUrl = this.apiUrl + "/shodan/alert?key=" + this.apiKey;
     this.displayToastMessage("Creating network alert '" + data.name + "'");
-    return new Promise(resolve => {
-      this.http.post(tmpUrl, alert).subscribe(result => {
+    return this.http.post(tmpUrl, alert).toPromise()
+      .then(result => {
         this.displayToastMessage("Created network alert '" + data.name + "' successfully!");
-        resolve(result);
-      },
-      err => {
-        resolve(err);
+        return result;
       })
-    })
+      .catch(err => err);
   }
 
   async deleteNetWorkAlert(id: string) {
     var tmpUrl = this.apiUrl + "/shodan/alert/" + id + "?key=" + this.apiKey;
     this.displayToastMessage("Deleting network alert " + id);
-    let headers = {'content-type': 'text/plain'}
-    return new Promise(resolve => {
-      this.http.delete(tmpUrl).subscribe(result => {
-        resolve(result);
-      },
-      err => {
-        resolve(err);
-      })
-    })
+    return this.http.delete(tmpUrl).toPromise().catch(err => err);
   }
 
   async getNetworkAlertInfo(id: string) {
     var tmpUrl = this.apiUrl + "/shodan/alert/" + id + "/info?key=" + this.apiKey;
     this.displayToastMessage("Fetching info for alert " + id);
-    return new Promise(resolve => {
-      this.http.get(tmpUrl).subscribe(result => {
-        resolve(result)
-      },
-      err => {
-        resolve(err);
-      })
-    })
+    return this.http.get(tmpUrl).toPromise().catch(err => err);
   }
 
   async getProfile() {
     var tmpUrl = this.apiUrl + "/account/profile?key=" + this.apiKey;
     this.displayToastMessage("Fetching profile data...");
-    return new Promise(resolve => {
-      this.http.get(tmpUrl).subscribe(data => {
-        resolve(data);
-      },
-      err => {
-        resolve(err);
-      });
-    });
+    return this.http.get(tmpUrl).toPromise().catch(err => err);
   }
 
   async getAPIInfo() {
     var tmpUrl = this.apiUrl + "/api-info?key=" + this.apiKey;
     this.displayToastMessage("Fetching API key info...");
-    return new Promise(resolve => {
-      this.http.get(tmpUrl).subscribe(data => {
-        resolve(data);
-      },
-      err => {
-        resolve(err);
-      })
-    })
+    return this.http.get(tmpUrl).toPromise().catch(err => err);
   }
 
   async disconnect() {
