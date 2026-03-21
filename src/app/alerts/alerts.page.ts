@@ -22,7 +22,7 @@ export class AlertsPage implements OnInit {
 
   getAlerts() {
     this.api.getNetworkAlerts().then((alerts) => {
-      console.log(alerts);
+      // Security: Do not expose network alert payload and IP definitions
       this.alerts = alerts;
     })
   }
@@ -69,7 +69,7 @@ export class AlertsPage implements OnInit {
               }
             }
             this.api.createNewNetworkAlert(alert).then((value) => {
-              console.log(value);
+              // Security: Prevent exposing network alert IPs and data
               if ('created' in value) { // got created
                 this.alerts.push(value); // 198.20.88.0/24
               } else {

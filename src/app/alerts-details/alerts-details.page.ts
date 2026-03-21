@@ -14,7 +14,7 @@ export class AlertsDetailsPage implements OnInit {
   constructor(public navExtrasService: NavExtrasService, public api: ApiService) {
     var alertId = navExtrasService.getItem();
     this.api.getNetworkAlertInfo(alertId).then(result => {
-      console.log(result);
+      // Security: Do not expose network alert payload and IP definitions
       this.alert = result;
     })
   }

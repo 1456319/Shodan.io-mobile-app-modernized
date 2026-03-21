@@ -9,4 +9,4 @@ if (environment.production) {
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+  .catch(err => console.error('Application bootstrap failed')); // Security: Avoid leaking generic errors
