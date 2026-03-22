@@ -4,24 +4,33 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: '14'
+    - name: Setup Java environment
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '8'
     - name: Cache node modules
-      uses: actions/cache@v1
+      uses: actions/cache@v4
       with:
         path: ~/.npm
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-    
-    - name: Install latest cordova Install
+    - name: Install project dependencies and specific Cordova versions
       run: |
         npm install
         npm install node-sass
         sudo npm install -g ionic
-        sudo npm install -g cordova@latest
-        sudo npm install -g cordova-android@latest
+        sudo npm install -g cordova@9.0.0
+        sudo npm install -g cordova-android@8.1.0
     - name: Add Android platform
       run: |
         ionic cordova platform remove android
@@ -30,7 +39,7 @@ jobs:
     - name: Build
       run: ionic cordova build --release android --verbose
     - name: Upload app
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v4
       with:
         name: Shodan_release_unsigned.apk
         path: platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
