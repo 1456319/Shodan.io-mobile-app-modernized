@@ -24,14 +24,11 @@ export class ProfilePage implements OnInit {
 
   getProfile() {
     this.api.getProfile().then((res) => {
-      console.log(res);
       this.profile = res;
       this.profile.created = this.profile.created.slice(0, -3);
       this.profile.created = this.profile.created + "Z";
-      console.log(this.profile.created);
     });
     this.api.getAPIInfo().then((res) => {
-      // console.log(res);
       this.info = res;
     })
   }

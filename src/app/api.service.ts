@@ -16,7 +16,6 @@ export class ApiService {
 
   constructor(public http: HttpClient, public toast: ToastController, public storage: StorageService) {
     this.storage.getAPIKey().then((value) => {
-      // console.log(value);
       this.apiKey = value;
     })
   }
