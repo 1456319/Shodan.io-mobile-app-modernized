@@ -24,7 +24,7 @@ export class ApiService {
   // Host Information
   // Returns all services that have been found on the given host IP.
   async getHostDetails(ip: string) {
-    var tmpUrl = this.apiUrl + "/shodan/host/" + ip + "?key=" + this.apiKey;
+    var tmpUrl = this.apiUrl + "/shodan/host/" + encodeURIComponent(ip) + "?key=" + this.apiKey;
     // this.displayToastMessage("Fetching results for IP: " + ip + "...")
     return new Promise(resolve => {
       this.http.get(tmpUrl).subscribe(data => {
@@ -50,7 +50,7 @@ export class ApiService {
   // Search Shodan using the same query syntax as the website and use facets to get summary information for different properties.
   // , facets: string
   async search(query: string) {
-    var tmpUrl = this.apiUrl + "/shodan/host/search?" + "query=" + query + "&key=" + this.apiKey;
+    var tmpUrl = this.apiUrl + "/shodan/host/search?" + "query=" + encodeURIComponent(query) + "&key=" + this.apiKey;
     // this.displayToastMessage("Fetching results for " + query + "...")
     return new Promise(resolve => {
       this.http.get(tmpUrl).subscribe(data => {
@@ -64,7 +64,7 @@ export class ApiService {
 
   async getMoreResults(query:string) {
     this.pageResults++;
-    var tmpUrl = this.apiUrl + "/shodan/host/search?" + "query=" + query + "&key=" + this.apiKey + "&page=" + this.pageQueries;
+    var tmpUrl = this.apiUrl + "/shodan/host/search?" + "query=" + encodeURIComponent(query) + "&key=" + this.apiKey + "&page=" + this.pageQueries;
     this.displayToastMessage("Fetching more results...");
     return new Promise(resolve => {
       this.http.get(tmpUrl).subscribe(data => {
@@ -147,7 +147,7 @@ export class ApiService {
   }
 
   async deleteNetWorkAlert(id: string) {
-    var tmpUrl = this.apiUrl + "/shodan/alert/" + id + "?key=" + this.apiKey;
+    var tmpUrl = this.apiUrl + "/shodan/alert/" + encodeURIComponent(id) + "?key=" + this.apiKey;
     this.displayToastMessage("Deleting network alert " + id);
     let headers = {'content-type': 'text/plain'}
     return new Promise(resolve => {
@@ -161,7 +161,7 @@ export class ApiService {
   }
 
   async getNetworkAlertInfo(id: string) {
-    var tmpUrl = this.apiUrl + "/shodan/alert/" + id + "/info?key=" + this.apiKey;
+    var tmpUrl = this.apiUrl + "/shodan/alert/" + encodeURIComponent(id) + "/info?key=" + this.apiKey;
     this.displayToastMessage("Fetching info for alert " + id);
     return new Promise(resolve => {
       this.http.get(tmpUrl).subscribe(result => {
