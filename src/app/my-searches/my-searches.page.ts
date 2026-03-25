@@ -20,7 +20,7 @@ export class MySearchesPage implements OnInit {
       for (var key in bookmarks) {
         this.bookmarks.push(bookmarks[key]);
       }
-      console.log(this.bookmarks);
+      // SECURITY: Removed console.log that was leaking user bookmarks in plain text
     })
   }
 
