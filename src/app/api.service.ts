@@ -41,8 +41,14 @@ export class ApiService {
   // it only returns the total number of results that matched the query and any facet information that was requested. 
   // As a result this method does not consume query credits.
   async getHostsCount(query: string, facets: string) {
-    var tmpUrl = this.apiUrl + "/shodan/host/count" + "?key=" + this.apiKey;
-    this.http.get(tmpUrl, {}).subscribe((res) => {
+    var tmpUrl = this.apiUrl + "/shodan/host/count?query=" + encodeURIComponent(query) + "&facets=" + encodeURIComponent(facets) + "&key=" + this.apiKey;
+    return new Promise(resolve => {
+      this.http.get(tmpUrl).subscribe((res) => {
+        resolve(res);
+      },
+      err => {
+        resolve(err);
+      })
     })
   }
 
