@@ -229,19 +229,16 @@ export class HomePage {
 
   getQueries() {
     this.api.getQueries().then((res) => {
-      console.log(res['matches']);
       this.queries = res['matches']
     });
   }
 
   changeQuery(item) {
-    console.log(item);
     this.query = item.query;
   }
 
   getMoreQueries(infiniteScroll) {
     this.api.getMoreQueries().then((res) => {
-      console.log(res['matches'])
       this.queries = this.queries.concat(res['matches']);
       infiniteScroll.target.complete();
     });
@@ -249,7 +246,6 @@ export class HomePage {
 
   searchShodan(item: string) {
    this.storage.addSearch(item);
-    console.log(item);
     this.navExtrasService.setItem(item);
     this.router.navigateByUrl('/search-results');
   }

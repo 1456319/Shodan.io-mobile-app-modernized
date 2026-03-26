@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ToastController } from '@ionic/angular';
 import { StorageService } from './storage.service';
 
@@ -36,6 +36,28 @@ export class ApiService {
     })
   }
 
+  // Host Count
+  // Returns the total number of results for a search query, plus optional facet counts.
+  // Note: use HttpParams to ensure query/facets are correctly encoded.
+  async getHostsCount(query: string, facets?: string) {
+    const paramsBase: Record<string, string> = {
+      key: this.apiKey,
+      query: query || '',
+    };
+
+    const params = new HttpParams({
+      fromObject: facets ? { ...paramsBase, facets } : paramsBase,
+    });
+
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl + "/shodan/host/count", { params }).subscribe(res => {
+        resolve(res);
+      }, err => {
+        resolve(err);
+      });
+    });
+  }
+
   // Search Shodan
   // Search Shodan using the same query syntax as the website and use facets to get summary information for different properties.
   // , facets: string
@@ -54,7 +76,7 @@ export class ApiService {
 
   async getMoreResults(query:string) {
     this.pageResults++;
-    var tmpUrl = this.apiUrl + "/shodan/host/search?" + "query=" + encodeURIComponent(query) + "&key=" + this.apiKey + "&page=" + this.pageQueries;
+    var tmpUrl = this.apiUrl + "/shodan/host/search?" + "query=" + encodeURIComponent(query) + "&key=" + this.apiKey + "&page=" + this.pageResults;
     this.displayToastMessage("Fetching more results...");
     return new Promise(resolve => {
       this.http.get(tmpUrl).subscribe(data => {

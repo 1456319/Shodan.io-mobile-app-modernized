@@ -71,10 +71,8 @@ export class AppComponent {
       })
 
       const toggle = document.querySelector('#themeToggle');
-      console.log(toggle);
 
       toggle.addEventListener('ionChange', (ev) => {
-        console.log(ev);
         document.body.classList.toggle('dark', (<any>ev).detail.checked);
         this.storage.setDarkTheme((<any>ev).detail.checked);
       });
