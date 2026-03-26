@@ -36,16 +36,6 @@ export class ApiService {
     })
   }
 
-  // Search Shodan without Results
-  // This method behaves identical to "/shodan/host/search" with the only difference that this method does not return any host results,
-  // it only returns the total number of results that matched the query and any facet information that was requested. 
-  // As a result this method does not consume query credits.
-  async getHostsCount(query: string, facets: string) {
-    var tmpUrl = this.apiUrl + "/shodan/host/count" + "?key=" + this.apiKey;
-    this.http.get(tmpUrl, {}).subscribe((res) => {
-    })
-  }
-
   // Search Shodan
   // Search Shodan using the same query syntax as the website and use facets to get summary information for different properties.
   // , facets: string
