@@ -16,12 +16,9 @@ export class MySearchesPage implements OnInit {
   constructor(public storage: StorageService, public alertController: AlertController, public router: Router, public navExtrasService: NavExtrasService) {
     this.bookmarks = [];
     this.storage.getBookmarks().then(bookmarks => {
-      // this.bookmarks = bookmarks;
-      for (var key in bookmarks) {
-        this.bookmarks.push(bookmarks[key]);
-      }
+      this.bookmarks = Object.values(bookmarks || {});
       console.log(this.bookmarks);
-    })
+    });
   }
 
   ngOnInit() {
