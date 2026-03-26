@@ -14,7 +14,6 @@ export class AlertsDetailsPage implements OnInit {
   constructor(public navExtrasService: NavExtrasService, public api: ApiService) {
     var alertId = navExtrasService.getItem();
     this.api.getNetworkAlertInfo(alertId).then(result => {
-      console.log(result);
       this.alert = result;
     })
   }
