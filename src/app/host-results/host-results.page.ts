@@ -26,7 +26,6 @@ export class HostResultsPage implements OnInit {
 
     this.presentLoading(item.ip_str);
     this.api.getHostDetails(item.ip_str).then((res) => {
-      console.log(res);
       this.item = res;
       this.selectedPort = null;
       this.loading.dismiss();
@@ -41,12 +40,9 @@ export class HostResultsPage implements OnInit {
   }
 
   showPayload(port) {
-    console.log(port);
     const found = this.item.data.find(d => d.port === port);
     if (found) {
-      console.log(found.port);
       this.selectedPort = found;
-      console.log(this.selectedPort);
     }
   }
 

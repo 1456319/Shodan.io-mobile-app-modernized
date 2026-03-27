@@ -12,11 +12,10 @@ export class AlertsDetailsPage implements OnInit {
   private alert: any;
 
   constructor(public navExtrasService: NavExtrasService, public api: ApiService) {
-    var alertId = navExtrasService.getItem();
+    const alertId = navExtrasService.getItem();
     this.api.getNetworkAlertInfo(alertId).then(result => {
-      console.log(result);
       this.alert = result;
-    })
+    });
   }
 
   ngOnInit() {

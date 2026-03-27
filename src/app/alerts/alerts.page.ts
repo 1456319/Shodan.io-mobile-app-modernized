@@ -22,9 +22,8 @@ export class AlertsPage implements OnInit {
 
   getAlerts() {
     this.api.getNetworkAlerts().then((alerts) => {
-      console.log(alerts);
       this.alerts = alerts;
-    })
+    });
   }
 
 
@@ -62,21 +61,20 @@ export class AlertsPage implements OnInit {
           text: 'Yes',
           handler: (data) => {
             console.log('Confirm Okay');
-            let alert = {
+            const alert = {
               name: data['name'],
               filters: {
                 ip: [data.ip]
               }
-            }
+            };
             this.api.createNewNetworkAlert(alert).then((value) => {
-              console.log(value);
               if ('created' in value) { // got created
                 this.alerts.push(value); // 198.20.88.0/24
               } else {
                 this.dialogBadAlert();
               }
-            })
-            
+            });
+
           }
         }
       ]
@@ -85,7 +83,7 @@ export class AlertsPage implements OnInit {
   }
 
   async dialogBadAlert() {
-    
+
     const alert = await this.alertController.create({
       header: 'Oops',
       // subHeader: 'Subtitle',
@@ -100,10 +98,10 @@ export class AlertsPage implements OnInit {
       ]
     });
     await alert.present();
-  }  
+  }
 
   async dialogDelete(item: any) {
-    
+
     const alert = await this.alertController.create({
       header: 'Delete alert',
       // subHeader: 'Subtitle',
@@ -121,12 +119,12 @@ export class AlertsPage implements OnInit {
           handler: () => {
             console.log('Confirm Okay');
             this.api.deleteNetWorkAlert(item.id);
-            let index = this.alerts.indexOf(item);
+            const index = this.alerts.indexOf(item);
             this.alerts.splice(index, 1);
           }
         }
       ]
     });
     await alert.present();
-  }  
+  }
 }
