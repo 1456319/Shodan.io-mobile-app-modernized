@@ -20,7 +20,7 @@ export class SearchResultsPage implements OnInit {
 
   constructor(public api: ApiService, public navExtrasService: NavExtrasService, public router: Router, public loadingController: LoadingController, public alertController: AlertController, public storage: StorageService) {
       this.query = navExtrasService.getItem();
-      console.log(this.query);
+      // SECURITY: Removed console.log that was leaking the search query
       this.search(this.query);
       this.presentLoading(this.query);
   }
@@ -35,7 +35,7 @@ export class SearchResultsPage implements OnInit {
 
   search(query) {
     this.api.search(query).then((res) => {
-      console.log(res);
+      // SECURITY: Removed console.log that was leaking full search results data
       this.results = res;
       this.loading.dismiss();
     });
@@ -43,7 +43,7 @@ export class SearchResultsPage implements OnInit {
 
   getMoreResults(infiniteScroll) {
     this.api.getMoreResults(this.query).then((res) => {
-      console.log(res['matches'])
+      // SECURITY: Removed console.log that was leaking search result matching data
       this.results['matches'] = this.results['matches'].concat(res['matches']);
       infiniteScroll.target.complete();
     });
