@@ -20,7 +20,7 @@ export class QueriesPage implements OnInit {
   }
 
   searchQuery(item) {
-    console.log(item.query);
+    // SECURITY: Removed console.log that was leaking user query
     this.storage.addSearch(item.query);
     this.navExtrasService.setItem(item.query);
     this.router.navigateByUrl('/search-results');
@@ -28,14 +28,14 @@ export class QueriesPage implements OnInit {
 
   getQueries() {
     this.api.getQueries().then((res) => {
-      console.log(res['matches']);
+      // SECURITY: Removed console.log that was leaking query results
       this.queries = res['matches']
     });
   }
   
   getMoreQueries(infiniteScroll) {
     this.api.getMoreQueries().then((res) => {
-      console.log(res['matches'])
+      // SECURITY: Removed console.log that was leaking further query results
       this.queries = this.queries.concat(res['matches']);
       infiniteScroll.target.complete();
     });

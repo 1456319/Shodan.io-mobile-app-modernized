@@ -22,7 +22,7 @@ export class AlertsPage implements OnInit {
 
   getAlerts() {
     this.api.getNetworkAlerts().then((alerts) => {
-      console.log(alerts);
+      // SECURITY: Removed console.log that was leaking alerts data
       this.alerts = alerts;
     })
   }
@@ -69,7 +69,7 @@ export class AlertsPage implements OnInit {
               }
             }
             this.api.createNewNetworkAlert(alert).then((value) => {
-              console.log(value);
+              // SECURITY: Removed console.log that was leaking the newly created alert response
               if ('created' in value) { // got created
                 this.alerts.push(value); // 198.20.88.0/24
               } else {
