@@ -26,7 +26,7 @@ export class HostResultsPage implements OnInit {
 
     this.presentLoading(item.ip_str);
     this.api.getHostDetails(item.ip_str).then((res) => {
-      console.log(res);
+      // SECURITY: Removed console.log that was leaking the host details in plain text
       this.item = res;
       this.selectedPort = null;
       this.loading.dismiss();
@@ -41,12 +41,12 @@ export class HostResultsPage implements OnInit {
   }
 
   showPayload(port) {
-    console.log(port);
+    // SECURITY: Removed console.log that was leaking the port in plain text
     const found = this.item.data.find(d => d.port === port);
     if (found) {
-      console.log(found.port);
+      // SECURITY: Removed console.log that was leaking the port in plain text
       this.selectedPort = found;
-      console.log(this.selectedPort);
+      // SECURITY: Removed console.log that was leaking the selected port in plain text
     }
   }
 
