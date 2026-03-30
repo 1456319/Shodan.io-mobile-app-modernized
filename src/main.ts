@@ -9,4 +9,5 @@ if (environment.production) {
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+  // SECURITY: Prevent stack trace leakage in production
+  .catch(err => console.error('An error occurred during bootstrap'));
