@@ -9,4 +9,5 @@ if (environment.production) {
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+  // SECURITY: Removed console.log that was leaking error details in plain text
+  .catch(err => { console.error("Application failed to initialize."); });
