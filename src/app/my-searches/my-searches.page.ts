@@ -17,7 +17,6 @@ export class MySearchesPage implements OnInit {
     this.bookmarks = [];
     this.storage.getBookmarks().then(bookmarks => {
       this.bookmarks = Object.values(bookmarks || {});
-      console.log(this.bookmarks);
     });
   }
 

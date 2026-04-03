@@ -17,3 +17,8 @@
 **Vulnerability:** The application was logging sensitive user bookmark keys (`keyBookmark`) and the entire `bookmarks` object to the console in `src/app/storage.service.ts`.
 **Learning:** Even when debugging specific features like bookmarking, logging entire data structures or unique keys can lead to significant information leakage of user-specific data.
 **Prevention:** Strictly enforce a "no console.log" policy for production code, especially when dealing with data retrieved from storage services. Use safe logging abstractions that sanitize data.
+
+## 2026-03-27 - [CRITICAL] Fix Insecure Storage Flush Leading to Data Loss
+**Vulnerability:** The `StorageService.flush()` method used `this.storage.clear()` to delete all application data. This unintentionally deleted the user's `apiKey` and other preferences, causing a severe usability issue where the user is abruptly logged out and loses their configuration.
+**Learning:** Overly broad data deletion commands like `clear()` can wipe out essential authentication tokens and user preferences that were not meant to be removed during a specific "flush" action.
+**Prevention:** Avoid `storage.clear()` unless the explicit goal is a complete application reset. Use targeted deletions (e.g., `storage.remove(key)`) to remove only specific datasets like bookmarks or search history, ensuring that sensitive credentials and user settings remain intact.
