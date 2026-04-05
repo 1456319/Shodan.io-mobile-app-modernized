@@ -17,3 +17,8 @@
 **Vulnerability:** The application was logging sensitive user bookmark keys (`keyBookmark`) and the entire `bookmarks` object to the console in `src/app/storage.service.ts`.
 **Learning:** Even when debugging specific features like bookmarking, logging entire data structures or unique keys can lead to significant information leakage of user-specific data.
 **Prevention:** Strictly enforce a "no console.log" policy for production code, especially when dealing with data retrieved from storage services. Use safe logging abstractions that sanitize data.
+
+## 2026-04-05 - [HIGH] Fix Sensitive Data Leak in Component Logs
+**Vulnerability:** The application was logging sensitive user data, such as search history, bookmarks, and network alerts, directly to the browser console via `console.log` in `src/app/history/history.page.ts`, `src/app/my-searches/my-searches.page.ts`, and `src/app/alerts/alerts.page.ts`.
+**Learning:** Component lifecycle methods (like `ionViewWillEnter`, `ngOnInit`, or constructors) often contain debugging logs that are inadvertently left in production builds, creating a widespread risk of data leakage for user-specific data beyond just direct API interactions.
+**Prevention:** Establish a strict policy against logging internal application state or data collections in production code, especially in components handling user data. Implement a logging abstraction that filters out arrays, objects, or PII before sending logs to any sink.
