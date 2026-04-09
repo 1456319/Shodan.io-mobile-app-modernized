@@ -22,7 +22,7 @@ export class AlertsPage implements OnInit {
 
   getAlerts() {
     this.api.getNetworkAlerts().then((alerts) => {
-      console.log(alerts);
+      // SECURITY: Removed console.log that was leaking alerts in plain text
       this.alerts = alerts;
     })
   }

@@ -17,3 +17,8 @@
 **Vulnerability:** The application was logging sensitive user bookmark keys (`keyBookmark`) and the entire `bookmarks` object to the console in `src/app/storage.service.ts`.
 **Learning:** Even when debugging specific features like bookmarking, logging entire data structures or unique keys can lead to significant information leakage of user-specific data.
 **Prevention:** Strictly enforce a "no console.log" policy for production code, especially when dealing with data retrieved from storage services. Use safe logging abstractions that sanitize data.
+
+## 2026-04-09 - [CRITICAL] Prevent Arbitrary State Purge and Data Loss on Flush
+**Vulnerability:** The application was using `this.storage.clear()` in the `flush()` method of `StorageService`. This deleted the user's explicit `apiKey` and other app state preferences (like dark mode), which was not the intended behaviour since only search history and bookmarks should have been flushed upon "Disconnect".
+**Learning:** Overly broad data removal methods (like `clear()`) often cause unintended consequences, data loss, and application logic bugs when multiple state variables are stored.
+**Prevention:** Avoid blanket `clear()` methods on storage services unless wiping all state is expressly necessary. Instead, iterate over explicitly allowed keys or use targeted `remove()` invocations to ensure only intended state items are evicted, preserving other crucial session variables.
