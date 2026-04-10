@@ -9,4 +9,5 @@ if (environment.production) {
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+  // SECURITY: Removed console.log that was leaking full error stack traces in plain text
+  .catch(() => console.error('Error bootstrapping application'));
