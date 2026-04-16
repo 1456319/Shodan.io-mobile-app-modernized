@@ -9,4 +9,7 @@ if (environment.production) {
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+  .catch(err => {
+    // SECURITY: Replaced generic console.log with a generic error message to prevent leaking sensitive details
+    console.error('Error bootstrapping application');
+  });
