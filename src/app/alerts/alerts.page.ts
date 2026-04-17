@@ -22,7 +22,6 @@ export class AlertsPage implements OnInit {
 
   getAlerts() {
     this.api.getNetworkAlerts().then((alerts) => {
-      console.log(alerts);
       this.alerts = alerts;
     })
   }

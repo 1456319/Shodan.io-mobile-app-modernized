@@ -17,3 +17,8 @@
 **Vulnerability:** The application was logging sensitive user bookmark keys (`keyBookmark`) and the entire `bookmarks` object to the console in `src/app/storage.service.ts`.
 **Learning:** Even when debugging specific features like bookmarking, logging entire data structures or unique keys can lead to significant information leakage of user-specific data.
 **Prevention:** Strictly enforce a "no console.log" policy for production code, especially when dealing with data retrieved from storage services. Use safe logging abstractions that sanitize data.
+
+## 2026-04-17 - [MEDIUM] Sensitive Data Exposure via console.log
+**Vulnerability:** Application components logged sensitive information (search history, network alerts, bookmarks) and stack traces to the console.
+**Learning:** Development logging can inadvertently expose sensitive PII and infrastructure details to anyone with access to the browser console. This violates the 'fail securely' principle and exposes data in plaintext.
+**Prevention:** Establish and enforce a strict logging policy that forbids logging sensitive data, removes debug logs before production builds, and uses generic error messages for client-side exceptions.
