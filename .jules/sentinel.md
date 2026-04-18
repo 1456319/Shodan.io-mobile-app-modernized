@@ -17,3 +17,7 @@
 **Vulnerability:** The application was logging sensitive user bookmark keys (`keyBookmark`) and the entire `bookmarks` object to the console in `src/app/storage.service.ts`.
 **Learning:** Even when debugging specific features like bookmarking, logging entire data structures or unique keys can lead to significant information leakage of user-specific data.
 **Prevention:** Strictly enforce a "no console.log" policy for production code, especially when dealing with data retrieved from storage services. Use safe logging abstractions that sanitize data.
+## 2024-04-18 - [MEDIUM] Error Handling: Unsanitized Stack Traces Exposed
+**Vulnerability:** The application bootstrap error handler in `src/main.ts` used `console.log(err)`, exposing complete stack traces and potentially sensitive configuration data to the browser console.
+**Learning:** Default error handlers (like generic `err => console.log(err)`) often inadvertently leak internal implementation details and sensitive runtime states that attackers can use to map the application architecture. Completely silencing errors makes debugging impossible; replacing them with generic error messages mitigates the leak while maintaining debuggability.
+**Prevention:** Avoid generic `console.log(err)` in catch blocks. Use generic error messages for the user/console (e.g., `console.error('Operation failed');`) and ensure any detailed logging is stripped in production builds.
