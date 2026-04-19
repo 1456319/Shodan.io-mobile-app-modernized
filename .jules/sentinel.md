@@ -17,3 +17,8 @@
 **Vulnerability:** The application was logging sensitive user bookmark keys (`keyBookmark`) and the entire `bookmarks` object to the console in `src/app/storage.service.ts`.
 **Learning:** Even when debugging specific features like bookmarking, logging entire data structures or unique keys can lead to significant information leakage of user-specific data.
 **Prevention:** Strictly enforce a "no console.log" policy for production code, especially when dealing with data retrieved from storage services. Use safe logging abstractions that sanitize data.
+
+## 2026-04-19 - [CRITICAL] Fix Data Destruction and Unintentional Credential Deletion
+**Vulnerability:** The `StorageService.flush()` method used `this.storage.clear()`, which inadvertently deleted sensitive user credentials (`apiKey`) and preferences (`dark` theme) when clearing bookmarks or search history.
+**Learning:** Clearing entire storage mechanisms (like `localStorage` or Ionic Storage) is dangerous because it assumes isolated state. In applications sharing the same storage pool for credentials and non-sensitive data, a global clear can cause unintentional logouts or data loss.
+**Prevention:** Always target specific keys for deletion (e.g., `storage.remove('key')`) rather than using global clear functions (e.g., `storage.clear()`) unless intentionally decommissioning the entire application state.
