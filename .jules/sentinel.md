@@ -17,3 +17,8 @@
 **Vulnerability:** The application was logging sensitive user bookmark keys (`keyBookmark`) and the entire `bookmarks` object to the console in `src/app/storage.service.ts`.
 **Learning:** Even when debugging specific features like bookmarking, logging entire data structures or unique keys can lead to significant information leakage of user-specific data.
 **Prevention:** Strictly enforce a "no console.log" policy for production code, especially when dealing with data retrieved from storage services. Use safe logging abstractions that sanitize data.
+
+## 2026-04-20 - [MEDIUM] Prevent Stack Trace Leak on Bootstrap Error
+**Vulnerability:** The application was logging the raw error object `err` using `console.log` during application bootstrap in `src/main.ts`, potentially exposing stack traces and internal details on failure.
+**Learning:** Bootstrapping errors can contain sensitive environment or configuration details. Catching and logging raw errors exposes this to the browser console.
+**Prevention:** Catch errors and log a generic error message (e.g., `console.error('Error bootstrapping application')`) instead of the full error object, preventing information leakage while still indicating failure.
