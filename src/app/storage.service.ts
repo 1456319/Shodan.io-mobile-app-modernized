@@ -99,8 +99,10 @@ export class StorageService {
   
   async flush() {
     this.displayToastMessage('Flushing your data!');
-    return this.storage.clear();
-    // return this.storage.remove(this.BOOKMARKS_VALUE);
+    // SECURITY: Only remove specific data (bookmarks and history)
+    // instead of clearing the entire storage to prevent deleting the user's API key.
+    await this.storage.remove(this.BOOKMARKS_VALUE);
+    return this.storage.remove(this.SEARCH_HISTORY);
   }
 
   async setAPIKey(value: string) {

@@ -17,3 +17,8 @@
 **Vulnerability:** The application was logging sensitive user bookmark keys (`keyBookmark`) and the entire `bookmarks` object to the console in `src/app/storage.service.ts`.
 **Learning:** Even when debugging specific features like bookmarking, logging entire data structures or unique keys can lead to significant information leakage of user-specific data.
 **Prevention:** Strictly enforce a "no console.log" policy for production code, especially when dealing with data retrieved from storage services. Use safe logging abstractions that sanitize data.
+
+## 2024-05-20 - [CRITICAL] Fix Credential Data Loss in Data Flush
+**Vulnerability:** The application was clearing the entire local storage (`this.storage.clear()`) in `src/app/storage.service.ts` when a user decided to flush their data (bookmarks/history). This inadvertently deleted the user's API key and theme preferences along with the intended data.
+**Learning:** Broad operations like `storage.clear()` or `session.clear()` are dangerous when the storage mechanism holds multiple types of distinct data, including credentials. It violates the principle of least privilege/impact.
+**Prevention:** Instead of clearing entire data stores, explicitly target and remove only the specific keys (e.g., `storage.remove('bookmarks')`) that the user expects to be deleted, preserving credentials and other unrelated configuration data.
