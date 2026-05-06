@@ -17,7 +17,7 @@ export class MySearchesPage implements OnInit {
     this.bookmarks = [];
     this.storage.getBookmarks().then(bookmarks => {
       this.bookmarks = Object.values(bookmarks || {});
-      console.log(this.bookmarks);
+      // SECURITY: Removed console.log that was leaking user bookmarks in plain text
     });
   }
 
