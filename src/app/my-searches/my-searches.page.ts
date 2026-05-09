@@ -17,7 +17,6 @@ export class MySearchesPage implements OnInit {
     this.bookmarks = [];
     this.storage.getBookmarks().then(bookmarks => {
       this.bookmarks = Object.values(bookmarks || {});
-      console.log(this.bookmarks);
     });
   }
 
@@ -80,7 +79,6 @@ export class MySearchesPage implements OnInit {
   }
 
   shortcutBookmark(item: any) {
-    console.log(item);
     // this.query || this.ip_str
     if (item.type == 'host') {
       item['ip_str'] = item.key;
