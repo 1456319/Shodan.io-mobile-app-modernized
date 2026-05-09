@@ -18,7 +18,6 @@ export class HistoryPage implements OnInit {
   ngOnInit() {
     this.storage.getSearches().then((searches) => {
       this.searches = searches;
-      console.log(this.searches);
     });
   }
 

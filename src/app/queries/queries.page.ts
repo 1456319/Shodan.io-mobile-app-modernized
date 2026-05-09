@@ -20,7 +20,6 @@ export class QueriesPage implements OnInit {
   }
 
   searchQuery(item) {
-    console.log(item.query);
     this.storage.addSearch(item.query);
     this.navExtrasService.setItem(item.query);
     this.router.navigateByUrl('/search-results');
@@ -28,14 +27,12 @@ export class QueriesPage implements OnInit {
 
   getQueries() {
     this.api.getQueries().then((res) => {
-      console.log(res['matches']);
       this.queries = res['matches']
     });
   }
   
   getMoreQueries(infiniteScroll) {
     this.api.getMoreQueries().then((res) => {
-      console.log(res['matches'])
       this.queries = this.queries.concat(res['matches']);
       infiniteScroll.target.complete();
     });

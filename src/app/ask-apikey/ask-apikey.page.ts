@@ -46,7 +46,6 @@ export class AskAPIKeyPage implements OnInit {
         {
           text: 'Ok.',
           handler: (data) => {
-            console.log('Confirm Okay');
           }
         }
       ]
