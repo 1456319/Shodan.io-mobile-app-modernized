@@ -17,3 +17,7 @@
 **Vulnerability:** The application was logging sensitive user bookmark keys (`keyBookmark`) and the entire `bookmarks` object to the console in `src/app/storage.service.ts`.
 **Learning:** Even when debugging specific features like bookmarking, logging entire data structures or unique keys can lead to significant information leakage of user-specific data.
 **Prevention:** Strictly enforce a "no console.log" policy for production code, especially when dealing with data retrieved from storage services. Use safe logging abstractions that sanitize data.
+## 2026-05-13 - [CRITICAL] Fix Sensitive Data Leak in Console Logs
+**Vulnerability:** The application was logging sensitive user search history (`console.log(this.searches);`) in `src/app/history/history.page.ts` and user bookmarks (`console.log(this.bookmarks);` and `console.log(item);`) in `src/app/my-searches/my-searches.page.ts` directly to the console.
+**Learning:** Even innocuous data like search history and bookmarks can be considered sensitive user information. Logging entire lists of user activity and specific interactions violates privacy and can lead to information leakage if logs are viewed by unauthorized parties or aggregated into insecure log management systems.
+**Prevention:** Strictly enforce a "no console.log" policy for production code, especially when dealing with data retrieved from storage services that represent user activity or preferences. Ensure that logging is removed or replaced with safe, sanitized logging abstractions before code is merged.
