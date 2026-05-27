@@ -17,7 +17,7 @@ export class MySearchesPage implements OnInit {
     this.bookmarks = [];
     this.storage.getBookmarks().then(bookmarks => {
       this.bookmarks = Object.values(bookmarks || {});
-      console.log(this.bookmarks);
+      // SECURITY: Removed console.log that was leaking bookmarks in plain text
     });
   }
 
@@ -80,7 +80,7 @@ export class MySearchesPage implements OnInit {
   }
 
   shortcutBookmark(item: any) {
-    console.log(item);
+    // SECURITY: Removed console.log that was leaking bookmark item in plain text
     // this.query || this.ip_str
     if (item.type == 'host') {
       item['ip_str'] = item.key;
