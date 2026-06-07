@@ -21,3 +21,8 @@
 **Vulnerability:** The application was logging sensitive network alerts and alert creation responses to the browser console (`console.log(alerts);` and `console.log(value);`) in `src/app/alerts/alerts.page.ts`.
 **Learning:** Developers often use `console.log` for debugging during development and forget to remove them before production, leading to unintentional information leakage of internal application state.
 **Prevention:** Establish a strict policy against logging sensitive data or generic error objects. Use a dedicated logging service that automatically strips or masks sensitive information before writing to logs or error tracking systems.
+
+## 2026-06-07 - [CRITICAL] Prevent Authentication State Loss on Storage Flush
+**Vulnerability:** The `StorageService.flush()` method used `this.storage.clear()`, which destroyed all stored data including the user's `apiKey`, causing unintended credential loss when users only intended to clear bookmarks.
+**Learning:** Using global `clear()` operations on shared key-value storage mechanisms inadvertently destroys authentication state and security tokens. Feature-specific reset operations must be scoped strictly to their domain.
+**Prevention:** Always target explicit keys (e.g., `remove(key)`) for data deletion instead of blanket clears unless implementing a complete factory reset.
