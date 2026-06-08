@@ -21,3 +21,8 @@
 **Vulnerability:** The application was logging sensitive network alerts and alert creation responses to the browser console (`console.log(alerts);` and `console.log(value);`) in `src/app/alerts/alerts.page.ts`.
 **Learning:** Developers often use `console.log` for debugging during development and forget to remove them before production, leading to unintentional information leakage of internal application state.
 **Prevention:** Establish a strict policy against logging sensitive data or generic error objects. Use a dedicated logging service that automatically strips or masks sensitive information before writing to logs or error tracking systems.
+
+## 2026-03-28 - [CRITICAL] Fix Sensitive Data Leak in Console Logs
+**Vulnerability:** The application was logging sensitive user search queries, search history, and raw Shodan API responses to the browser console across multiple components (`history.page.ts`, `search-results.page.ts`, `queries.page.ts`, `home.page.ts`).
+**Learning:** Developers often log user inputs and API responses during development for debugging, but fail to remove them. This exposes potentially sensitive user search behavior and detailed network reconnaissance data to anyone with access to the browser console.
+**Prevention:** Establish a strict policy against logging sensitive data, user inputs, or raw API responses to the console. Implement pre-commit hooks or automated code scanning tools to detect and block `console.log` statements containing sensitive variable names before they reach production.
