@@ -28,14 +28,14 @@ export class QueriesPage implements OnInit {
 
   getQueries() {
     this.api.getQueries().then((res) => {
-      console.log(res['matches']);
+      // SECURITY: Removed console.log that was leaking sensitive data in plain text
       this.queries = res['matches']
     });
   }
   
   getMoreQueries(infiniteScroll) {
     this.api.getMoreQueries().then((res) => {
-      console.log(res['matches'])
+      // SECURITY: Removed console.log that was leaking sensitive data in plain text
       this.queries = this.queries.concat(res['matches']);
       infiniteScroll.target.complete();
     });

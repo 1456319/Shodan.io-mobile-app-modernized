@@ -35,7 +35,7 @@ export class SearchResultsPage implements OnInit {
 
   search(query) {
     this.api.search(query).then((res) => {
-      console.log(res);
+      // SECURITY: Removed console.log that was leaking sensitive data in plain text
       this.results = res;
       this.loading.dismiss();
     });
@@ -43,7 +43,7 @@ export class SearchResultsPage implements OnInit {
 
   getMoreResults(infiniteScroll) {
     this.api.getMoreResults(this.query).then((res) => {
-      console.log(res['matches'])
+      // SECURITY: Removed console.log that was leaking sensitive data in plain text
       this.results['matches'] = this.results['matches'].concat(res['matches']);
       infiniteScroll.target.complete();
     });
