@@ -20,7 +20,7 @@ export class SearchResultsPage implements OnInit {
 
   constructor(public api: ApiService, public navExtrasService: NavExtrasService, public router: Router, public loadingController: LoadingController, public alertController: AlertController, public storage: StorageService) {
       this.query = navExtrasService.getItem();
-      console.log(this.query);
+      // SECURITY: Removed console.log that was leaking the active search query in plain text
       this.search(this.query);
       this.presentLoading(this.query);
   }
