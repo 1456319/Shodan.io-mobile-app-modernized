@@ -21,3 +21,8 @@
 **Vulnerability:** The application was logging sensitive network alerts and alert creation responses to the browser console (`console.log(alerts);` and `console.log(value);`) in `src/app/alerts/alerts.page.ts`.
 **Learning:** Developers often use `console.log` for debugging during development and forget to remove them before production, leading to unintentional information leakage of internal application state.
 **Prevention:** Establish a strict policy against logging sensitive data or generic error objects. Use a dedicated logging service that automatically strips or masks sensitive information before writing to logs or error tracking systems.
+
+## 2026-06-16 - [HIGH] Fix Data Loss of Sensitive Credentials
+**Vulnerability:** The `StorageService.flush()` method was using `this.storage.clear()`, which erased the entire local storage, inadvertently deleting the user's `apiKey` and theme preferences.
+**Learning:** Clearing the entire storage as a shortcut to flush user-generated data (like bookmarks and searches) causes unintended data loss of sensitive credentials and application state.
+**Prevention:** Always target specific keys for deletion (e.g., `this.storage.remove(key)`) when clearing user-generated data, rather than wiping the entire storage mechanism.
