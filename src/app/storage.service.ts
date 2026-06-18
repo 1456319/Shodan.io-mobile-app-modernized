@@ -99,8 +99,8 @@ export class StorageService {
   
   async flush() {
     this.displayToastMessage('Flushing your data!');
-    return this.storage.clear();
-    // return this.storage.remove(this.BOOKMARKS_VALUE);
+    await this.storage.remove(this.SEARCH_HISTORY);
+    return this.storage.remove(this.BOOKMARKS_VALUE);
   }
 
   async setAPIKey(value: string) {
