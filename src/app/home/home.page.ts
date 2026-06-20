@@ -229,19 +229,19 @@ export class HomePage {
 
   getQueries() {
     this.api.getQueries().then((res) => {
-      console.log(res['matches']);
+      // SECURITY: Removed console.log that was leaking query search results in plain text
       this.queries = res['matches']
     });
   }
 
   changeQuery(item) {
-    console.log(item);
+    // SECURITY: Removed console.log that was leaking user query string in plain text
     this.query = item.query;
   }
 
   getMoreQueries(infiniteScroll) {
     this.api.getMoreQueries().then((res) => {
-      console.log(res['matches'])
+      // SECURITY: Removed console.log that was leaking more query search results in plain text
       this.queries = this.queries.concat(res['matches']);
       infiniteScroll.target.complete();
     });
@@ -249,7 +249,7 @@ export class HomePage {
 
   searchShodan(item: string) {
    this.storage.addSearch(item);
-    console.log(item);
+    // SECURITY: Removed console.log that was leaking user search item in plain text
     this.navExtrasService.setItem(item);
     this.router.navigateByUrl('/search-results');
   }
