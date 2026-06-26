@@ -21,3 +21,8 @@
 **Vulnerability:** The application was logging sensitive network alerts and alert creation responses to the browser console (`console.log(alerts);` and `console.log(value);`) in `src/app/alerts/alerts.page.ts`.
 **Learning:** Developers often use `console.log` for debugging during development and forget to remove them before production, leading to unintentional information leakage of internal application state.
 **Prevention:** Establish a strict policy against logging sensitive data or generic error objects. Use a dedicated logging service that automatically strips or masks sensitive information before writing to logs or error tracking systems.
+
+## 2026-03-29 - [MEDIUM] Fix Data Loss Risk in Storage Flush
+**Vulnerability:** The `StorageService.flush()` method was using `this.storage.clear()`, which inadvertently deleted sensitive credentials (`apiKey`) and user preferences when users only intended to flush their bookmarks or search history.
+**Learning:** Clearing the entire local storage is almost never the intended behavior when selectively deleting user data categories. It can lead to sudden loss of authentication state and settings.
+**Prevention:** When implementing data deletion or "flush" features, explicitly target the specific storage keys to be removed (e.g., `this.storage.remove(KEY)`) rather than using a global clear operation.
