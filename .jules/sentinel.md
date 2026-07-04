@@ -21,3 +21,8 @@
 **Vulnerability:** The application was logging sensitive network alerts and alert creation responses to the browser console (`console.log(alerts);` and `console.log(value);`) in `src/app/alerts/alerts.page.ts`.
 **Learning:** Developers often use `console.log` for debugging during development and forget to remove them before production, leading to unintentional information leakage of internal application state.
 **Prevention:** Establish a strict policy against logging sensitive data or generic error objects. Use a dedicated logging service that automatically strips or masks sensitive information before writing to logs or error tracking systems.
+
+## 2026-03-27 - [CRITICAL] Fix Pervasive Sensitive Data Leaks in Console Logs
+**Vulnerability:** The application was extensively logging sensitive user data, including search history, bookmarks, API responses (queries and host details), and selected host ports to the browser console across multiple components (`my-searches`, `history`, `home`, `queries`, `search-results`, `host-results`).
+**Learning:** The sheer volume of these `console.log` statements indicates a systemic issue where debugging logs are routinely left in the code. This widespread logging of application state in a client-side Angular app significantly increases the risk of sensitive data exposure to anyone who opens the developer tools, or to potentially malicious browser extensions.
+**Prevention:** Establish and enforce a strict 'no-console.log' policy for production code, enforced by linters (e.g., TSLint's `no-console` rule). Ensure that all debugging logs are stripped during the build process, or use a structured logging service that redacts sensitive information.
