@@ -21,3 +21,8 @@
 **Vulnerability:** The application was logging sensitive network alerts and alert creation responses to the browser console (`console.log(alerts);` and `console.log(value);`) in `src/app/alerts/alerts.page.ts`.
 **Learning:** Developers often use `console.log` for debugging during development and forget to remove them before production, leading to unintentional information leakage of internal application state.
 **Prevention:** Establish a strict policy against logging sensitive data or generic error objects. Use a dedicated logging service that automatically strips or masks sensitive information before writing to logs or error tracking systems.
+
+## 2026-03-28 - [CRITICAL] Fix Sensitive Data Leak in Console Logs for Search Queries
+**Vulnerability:** The application was logging the user's plain-text search query and raw result data to the browser console (`console.log(this.query);` and `console.log(res);` etc) in `src/app/search-results/search-results.page.ts`.
+**Learning:** Search queries can often contain sensitive, personally identifiable information, internal network ranges, or sensitive technical terms. Developers must avoid logging search payloads or result structures to prevent exposure to anyone who opens the dev tools or uses automated monitoring scripts.
+**Prevention:** Strictly enforce a 'no console.log' policy for production code, specifically on variables that contain direct user input like search queries.
