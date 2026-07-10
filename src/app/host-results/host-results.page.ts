@@ -26,7 +26,7 @@ export class HostResultsPage implements OnInit {
 
     this.presentLoading(item.ip_str);
     this.api.getHostDetails(item.ip_str).then((res) => {
-      console.log(res);
+      // SECURITY: Removed console.log that was leaking host details data
       this.item = res;
       this.selectedPort = null;
       this.loading.dismiss();
@@ -41,12 +41,9 @@ export class HostResultsPage implements OnInit {
   }
 
   showPayload(port) {
-    console.log(port);
     const found = this.item.data.find(d => d.port === port);
     if (found) {
-      console.log(found.port);
       this.selectedPort = found;
-      console.log(this.selectedPort);
     }
   }
 
@@ -61,12 +58,11 @@ export class HostResultsPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+            // Cancelled
           }
         }, {
           text: 'Yes!',
           handler: (data) => {
-            console.log('Confirm Okay');
             this.storage.addBookmark('host', this.item.ip_str);
           }
         }

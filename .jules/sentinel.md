@@ -26,3 +26,8 @@
 **Vulnerability:** The `StorageService.flush()` method was using `this.storage.clear()` which wiped all local storage data, unintentionally destroying the user's API key (`apiKey`) and theme preferences instead of only removing search histories and bookmarks.
 **Learning:** Using global state clearing functions (`clear()`) without explicitly targeting intended keys can lead to unintended data loss or denial of service by removing necessary application configurations like authentication tokens.
 **Prevention:** Always target specific data keys for deletion (e.g., `this.storage.remove(key)`) rather than relying on global clear functions unless a complete reset is explicitly intended.
+
+## 2026-03-30 - [CRITICAL] Fix Additional Sensitive Data Leaks in Console Logs
+**Vulnerability:** The application was logging detailed Shodan host records (`console.log(res)` in `host-results.page.ts`), network alert details (`console.log(result)` in `alerts-details.page.ts`), and user search queries (`console.log(item.query)` in `queries.page.ts`) directly to the browser console.
+**Learning:** Even after initial remediation of console leaks, debugging statements often remain in edge-case or detail views (like `host-results` or `alerts-details`). These can leak highly sensitive reconnaissance data or user behavior history to anyone with physical access to the device or through XSS attacks.
+**Prevention:** Conduct codebase-wide audits for `console.log` rather than spot-fixing. Implement a pre-commit hook or linter rule (`no-console` in ESLint/TSLint) to prevent debugging statements from being committed to the repository, especially in production builds.
