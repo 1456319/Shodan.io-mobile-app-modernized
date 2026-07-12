@@ -26,3 +26,8 @@
 **Vulnerability:** The `StorageService.flush()` method was using `this.storage.clear()` which wiped all local storage data, unintentionally destroying the user's API key (`apiKey`) and theme preferences instead of only removing search histories and bookmarks.
 **Learning:** Using global state clearing functions (`clear()`) without explicitly targeting intended keys can lead to unintended data loss or denial of service by removing necessary application configurations like authentication tokens.
 **Prevention:** Always target specific data keys for deletion (e.g., `this.storage.remove(key)`) rather than relying on global clear functions unless a complete reset is explicitly intended.
+
+## 2026-07-28 - [CRITICAL] Fix Systematic Data Leaks in Console Logs
+**Vulnerability:** The application was indiscriminately logging raw API responses (queries, host data, search results) directly to the browser console during application usage.
+**Learning:** When one data leak is found in a file, it often indicates a codebase-wide pattern of using 'console.log' as a lazy substitute for structured, sanitizing logging or debug inspection, which is never cleaned up before shipping.
+**Prevention:** Establish CI/CD linting rules (like 'no-console') to prevent any console logging from reaching the main branch. Any necessary debugging should be done via a dedicated logger that scrubs PII and credentials.
