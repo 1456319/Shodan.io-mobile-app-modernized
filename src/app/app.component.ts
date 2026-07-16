@@ -71,10 +71,10 @@ export class AppComponent {
       })
 
       const toggle = document.querySelector('#themeToggle');
-      console.log(toggle);
+      // SECURITY: Removed console.log that was leaking UI event info
 
       toggle.addEventListener('ionChange', (ev) => {
-        console.log(ev);
+        // SECURITY: Removed console.log that was leaking UI event info
         document.body.classList.toggle('dark', (<any>ev).detail.checked);
         this.storage.setDarkTheme((<any>ev).detail.checked);
       });
