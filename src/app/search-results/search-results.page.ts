@@ -20,6 +20,7 @@ export class SearchResultsPage implements OnInit {
 
   constructor(public api: ApiService, public navExtrasService: NavExtrasService, public router: Router, public loadingController: LoadingController, public alertController: AlertController, public storage: StorageService) {
       this.query = navExtrasService.getItem();
+      // SECURITY: Removed console.log that was leaking user search queries
       this.search(this.query);
       this.presentLoading(this.query);
   }
@@ -34,6 +35,7 @@ export class SearchResultsPage implements OnInit {
 
   search(query) {
     this.api.search(query).then((res) => {
+      // SECURITY: Removed console.log that was leaking search results data
       this.results = res;
       this.loading.dismiss();
     });
@@ -41,6 +43,7 @@ export class SearchResultsPage implements OnInit {
 
   getMoreResults(infiniteScroll) {
     this.api.getMoreResults(this.query).then((res) => {
+      // SECURITY: Removed console.log that was leaking search results data
       this.results['matches'] = this.results['matches'].concat(res['matches']);
       infiniteScroll.target.complete();
     });
@@ -60,11 +63,13 @@ export class SearchResultsPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
+            console.log('Confirm Cancel: blah');
           }
         }, {
           text: 'Yes!',
           handler: (data) => {
             this.storage.addBookmark('query', this.query);
+            console.log('Confirm Okay');
             // this.toast.showToastMessage("Successfully " + this.title + " scriptlet!");
           }
         }

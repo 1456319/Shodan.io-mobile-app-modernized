@@ -18,6 +18,7 @@ export class HistoryPage implements OnInit {
   ngOnInit() {
     this.storage.getSearches().then((searches) => {
       this.searches = searches;
+      // SECURITY: Removed console.log that was leaking user search history
     });
   }
 
