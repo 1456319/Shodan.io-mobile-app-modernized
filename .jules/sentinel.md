@@ -17,12 +17,18 @@
 **Vulnerability:** The application was logging sensitive user bookmark keys (`keyBookmark`) and the entire `bookmarks` object to the console in `src/app/storage.service.ts`.
 **Learning:** Even when debugging specific features like bookmarking, logging entire data structures or unique keys can lead to significant information leakage of user-specific data.
 **Prevention:** Strictly enforce a "no console.log" policy for production code, especially when dealing with data retrieved from storage services. Use safe logging abstractions that sanitize data.
+
 ## 2026-03-27 - [CRITICAL] Fix Sensitive Data Leak in Console Logs
 **Vulnerability:** The application was logging sensitive network alerts and alert creation responses to the browser console (`console.log(alerts);` and `console.log(value);`) in `src/app/alerts/alerts.page.ts`.
 **Learning:** Developers often use `console.log` for debugging during development and forget to remove them before production, leading to unintentional information leakage of internal application state.
 **Prevention:** Establish a strict policy against logging sensitive data or generic error objects. Use a dedicated logging service that automatically strips or masks sensitive information before writing to logs or error tracking systems.
 
 ## 2026-07-07 - [MEDIUM] Fix Unintended Deletion of Sensitive Credentials on Flush
-**Vulnerability:** The `StorageService.flush()` method was using `this.storage.clear()` which wiped all local storage data, unintentionally destroying the user's API key (`apiKey`) and theme preferences instead of only removing search histories and bookmarks.
+**Vulnerability:** The `StorageService.flush()` method was using `this.storage.clear()` which wiped all local storage data, unintentionally destroying the user`s API key (`apiKey`) and theme preferences instead of only removing search histories and bookmarks.
 **Learning:** Using global state clearing functions (`clear()`) without explicitly targeting intended keys can lead to unintended data loss or denial of service by removing necessary application configurations like authentication tokens.
 **Prevention:** Always target specific data keys for deletion (e.g., `this.storage.remove(key)`) rather than relying on global clear functions unless a complete reset is explicitly intended.
+
+## 2026-07-19 - [CRITICAL] Codebase-Wide Audit and Removal of PII & Reconnaissance Console Logs
+**Vulnerability:** Across multiple application pages (`home.page.ts`, `queries.page.ts`, `host-results.page.ts`, `alerts-details.page.ts`, `my-searches.page.ts`, `alerts.page.ts`, `search-results.page.ts`, and `app.component.ts`), raw user search queries, Shodan API host details, open port payloads, and network alert definitions were being logged directly to the browser console. Additionally, `StorageService.flush()` was calling global `storage.clear()`, which wiped all storage items including authentication keys and theme preferences.
+**Learning:** Spot-fixing individual console logs often leaves debugging artifacts across detail and edge-case views (`host-results`, `alerts-details`), creating systemic data leakage vectors. Furthermore, using global clearing functions for partial state resets introduces destructive side effects.
+**Prevention:** Enforce strict automated linting (`no-console`) across the entire codebase to prevent debug statements from reaching production builds. Always target specific storage keys (`storage.remove()`) when clearing user session data rather than wiping global storage state.
