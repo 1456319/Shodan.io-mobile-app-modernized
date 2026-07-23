@@ -80,7 +80,7 @@ export class MySearchesPage implements OnInit {
   }
 
   shortcutBookmark(item: any) {
-    console.log(item);
+    // SECURITY: Removed console.log that was leaking bookmark item data
     // this.query || this.ip_str
     if (item.type == 'host') {
       item['ip_str'] = item.key;
