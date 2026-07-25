@@ -63,13 +63,11 @@ export class SearchResultsPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
           }
         }, {
           text: 'Yes!',
           handler: (data) => {
             this.storage.addBookmark('query', this.query);
-            console.log('Confirm Okay');
             // this.toast.showToastMessage("Successfully " + this.title + " scriptlet!");
           }
         }
