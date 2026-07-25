@@ -56,12 +56,10 @@ export class AlertsPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
           }
         }, {
           text: 'Yes',
           handler: (data) => {
-            console.log('Confirm Okay');
             let alert = {
               name: data['name'],
               filters: {
@@ -94,7 +92,6 @@ export class AlertsPage implements OnInit {
         {
           text: 'Ok.',
           handler: () => {
-            console.log('Confirm Okay');
           }
         }
       ]
@@ -114,12 +111,10 @@ export class AlertsPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
           }
         }, {
           text: 'Yes',
           handler: () => {
-            console.log('Confirm Okay');
             this.api.deleteNetWorkAlert(item.id);
             let index = this.alerts.indexOf(item);
             this.alerts.splice(index, 1);

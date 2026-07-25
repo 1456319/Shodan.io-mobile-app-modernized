@@ -35,12 +35,10 @@ export class MySearchesPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
           }
         }, {
           text: 'Yes',
           handler: () => {
-            console.log('Confirm Okay');
             this.storage.flush().then(() => {
               this.bookmarks = [];
             });
@@ -63,12 +61,10 @@ export class MySearchesPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
           }
         }, {
           text: 'Yes',
           handler: () => {
-            console.log('Confirm Okay');
             this.storage.removeBookmark(item.type, item.key);
             let index = this.bookmarks.indexOf(item);
             this.bookmarks.splice(index, 1);            
@@ -80,7 +76,6 @@ export class MySearchesPage implements OnInit {
   }
 
   shortcutBookmark(item: any) {
-    console.log(item);
     // this.query || this.ip_str
     if (item.type == 'host') {
       item['ip_str'] = item.key;
