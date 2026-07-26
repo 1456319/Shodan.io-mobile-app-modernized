@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { ToastController } from '@ionic/angular';
 import { StorageService } from './storage.service';
 
@@ -147,8 +147,9 @@ export class ApiService {
     let alert = JSON.stringify(data);
     var tmpUrl = this.apiUrl + "/shodan/alert?key=" + this.apiKey;
     this.displayToastMessage("Creating network alert '" + data.name + "'");
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return new Promise(resolve => {
-      this.http.post(tmpUrl, alert).subscribe(result => {
+      this.http.post(tmpUrl, alert, { headers }).subscribe(result => {
         this.displayToastMessage("Created network alert '" + data.name + "' successfully!");
         resolve(result);
       },
@@ -161,9 +162,9 @@ export class ApiService {
   async deleteNetWorkAlert(id: string) {
     var tmpUrl = this.apiUrl + "/shodan/alert/" + encodeURIComponent(id) + "?key=" + this.apiKey;
     this.displayToastMessage("Deleting network alert " + id);
-    let headers = {'content-type': 'text/plain'}
+    let headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
     return new Promise(resolve => {
-      this.http.delete(tmpUrl).subscribe(result => {
+      this.http.delete(tmpUrl, { headers }).subscribe(result => {
         resolve(result);
       },
       err => {
