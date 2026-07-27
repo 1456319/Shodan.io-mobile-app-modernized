@@ -37,3 +37,7 @@
 **Vulnerability:** The `createNewNetworkAlert` method in `src/app/api.service.ts` sends a JSON payload (`JSON.stringify(data)`) via an HTTP POST request without specifying the `Content-Type: application/json` header.
 **Learning:** Relying on default headers or server-side sniffing to determine the content type of a request can lead to misinterpretation of data and potentially bypass certain input validation filters on the backend.
 **Prevention:** Always explicitly define the `Content-Type` header (e.g., `application/json`) when sending structured data in HTTP requests to ensure the server processes the payload as expected and enforces appropriate security controls.
+## 2026-07-26 - [LOW] Missing Content-Type Header for JSON POST Requests
+**Vulnerability:** The `createNewNetworkAlert` method in `src/app/api.service.ts` sends a JSON payload (`JSON.stringify(data)`) via an HTTP POST request without specifying the `Content-Type: application/json` header, and `deleteNetWorkAlert` fails to pass its headers.
+**Learning:** Relying on default headers or server-side sniffing to determine the content type of a request can lead to misinterpretation of data and potentially bypass certain input validation filters on the backend.
+**Prevention:** Always explicitly define the `Content-Type` header (e.g., `application/json`) when sending structured data in HTTP requests to ensure the server processes the payload as expected and enforces appropriate security controls.
