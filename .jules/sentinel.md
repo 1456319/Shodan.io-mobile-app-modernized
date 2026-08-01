@@ -41,3 +41,8 @@
 **Vulnerability:** The `createNewNetworkAlert` method in `src/app/api.service.ts` sends a JSON payload (`JSON.stringify(data)`) via an HTTP POST request without specifying the `Content-Type: application/json` header, and `deleteNetWorkAlert` fails to pass its headers.
 **Learning:** Relying on default headers or server-side sniffing to determine the content type of a request can lead to misinterpretation of data and potentially bypass certain input validation filters on the backend.
 **Prevention:** Always explicitly define the `Content-Type` header (e.g., `application/json`) when sending structured data in HTTP requests to ensure the server processes the payload as expected and enforces appropriate security controls.
+
+## 2026-08-01 - [HIGH] Prevent API key leak in error handling
+**Vulnerability:** The raw HTTP error object in Angular HttpClient includes the request URL. Resolving promises with the raw error leaked the Shodan API key embedded in the URL query string.
+**Learning:** Never pass raw HTTP error objects directly to the caller, especially when sensitive information like API keys are included in the request URL.
+**Prevention:** Sanitize HTTP errors by returning generic error messages (e.g., `{ error: 'Request failed' }`) instead of the full error object.
