@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "Shodan Mobile",
-    "slug": "shodan-mobile",
+    "name": "Cast Ultra Lab",
+    "slug": "cast-ultra-lab",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/shodan-icon.png",
     "userInterfaceStyle": "dark",
-    "scheme": "shodan-mobile",
+    "scheme": "cast-ultra-lab",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "io.shodan.app",
+      "bundleIdentifier": "app.castultralab",
       "infoPlist": {
         "NSCameraUsageDescription": "Shodan Mobile needs camera access to scan QR codes for authentication."
       }
@@ -24,11 +24,12 @@
         "foregroundImage": "./assets/shodan-adaptive-icon.png",
         "backgroundColor": "#0A0E17"
       },
-      "package": "io.shodan.app",
+      "package": "app.castultralab",
       "permissions": [
-        "CAMERA",
-        "android.permission.CAMERA",
-        "android.permission.RECORD_AUDIO"
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.ACCESS_WIFI_STATE",
+        "android.permission.CHANGE_WIFI_MULTICAST_STATE"
       ],
       "blockedPermissions": [
         "com.google.android.gms.permission.AD_ID"
@@ -37,7 +38,8 @@
         "googleMaps": {
           "apiKey": "YOUR_GOOGLE_MAPS_API_KEY"
         }
-      }
+      },
+      "usesCleartextTraffic": true
     },
     "web": {
       "favicon": "./assets/shodan-favicon.png",
