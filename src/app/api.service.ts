@@ -31,7 +31,8 @@ export class ApiService {
         resolve(data);
       },
       err => {
-        resolve(err);
+        // SECURITY: Do not leak raw error object which contains the API key in the URL
+        resolve({ error: 'Request failed' });
       });
     })
   }
@@ -47,7 +48,8 @@ export class ApiService {
         resolve(data);
       },
       err => {
-        resolve(err);
+        // SECURITY: Do not leak raw error object which contains the API key in the URL
+        resolve({ error: 'Request failed' });
       });
     })
   }
@@ -69,7 +71,8 @@ export class ApiService {
       this.http.get(this.apiUrl + "/shodan/host/count", { params }).subscribe(res => {
         resolve(res);
       }, err => {
-        resolve(err);
+        // SECURITY: Do not leak raw error object which contains the API key in the URL
+        resolve({ error: 'Request failed' });
       });
     });
   }
@@ -83,7 +86,8 @@ export class ApiService {
         resolve(data);
       },
       err => {
-        resolve(err);
+        // SECURITY: Do not leak raw error object which contains the API key in the URL
+        resolve({ error: 'Request failed' });
       });
     });    
   }
@@ -95,7 +99,8 @@ export class ApiService {
         resolve(data);
       },
       err => {
-        resolve(err);
+        // SECURITY: Do not leak raw error object which contains the API key in the URL
+        resolve({ error: 'Request failed' });
       });
     });
   }
@@ -111,7 +116,8 @@ export class ApiService {
         resolve(data);
       },
       err => {
-        resolve(err);
+        // SECURITY: Do not leak raw error object which contains the API key in the URL
+        resolve({ error: 'Request failed' });
       });
     });
   }
@@ -125,7 +131,8 @@ export class ApiService {
         resolve(data);
       },
       err => {
-        resolve(err);
+        // SECURITY: Do not leak raw error object which contains the API key in the URL
+        resolve({ error: 'Request failed' });
       });
     });    
   }
@@ -138,7 +145,8 @@ export class ApiService {
         resolve(data);
       },
       err => {
-        resolve(err);
+        // SECURITY: Do not leak raw error object which contains the API key in the URL
+        resolve({ error: 'Request failed' });
       })
     });
   }
@@ -154,7 +162,8 @@ export class ApiService {
         resolve(result);
       },
       err => {
-        resolve(err);
+        // SECURITY: Do not leak raw error object which contains the API key in the URL
+        resolve({ error: 'Request failed' });
       })
     })
   }
@@ -168,7 +177,8 @@ export class ApiService {
         resolve(result);
       },
       err => {
-        resolve(err);
+        // SECURITY: Do not leak raw error object which contains the API key in the URL
+        resolve({ error: 'Request failed' });
       })
     })
   }
@@ -181,7 +191,8 @@ export class ApiService {
         resolve(result)
       },
       err => {
-        resolve(err);
+        // SECURITY: Do not leak raw error object which contains the API key in the URL
+        resolve({ error: 'Request failed' });
       })
     })
   }
@@ -194,7 +205,8 @@ export class ApiService {
         resolve(data);
       },
       err => {
-        resolve(err);
+        // SECURITY: Do not leak raw error object which contains the API key in the URL
+        resolve({ error: 'Request failed' });
       });
     });
   }
@@ -207,7 +219,8 @@ export class ApiService {
         resolve(data);
       },
       err => {
-        resolve(err);
+        // SECURITY: Do not leak raw error object which contains the API key in the URL
+        resolve({ error: 'Request failed' });
       })
     })
   }
