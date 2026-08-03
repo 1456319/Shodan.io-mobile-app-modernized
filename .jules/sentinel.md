@@ -41,3 +41,8 @@
 **Vulnerability:** The `createNewNetworkAlert` method in `src/app/api.service.ts` sends a JSON payload (`JSON.stringify(data)`) via an HTTP POST request without specifying the `Content-Type: application/json` header, and `deleteNetWorkAlert` fails to pass its headers.
 **Learning:** Relying on default headers or server-side sniffing to determine the content type of a request can lead to misinterpretation of data and potentially bypass certain input validation filters on the backend.
 **Prevention:** Always explicitly define the `Content-Type` header (e.g., `application/json`) when sending structured data in HTTP requests to ensure the server processes the payload as expected and enforces appropriate security controls.
+
+## 2026-07-28 - [CRITICAL] Fix API Key Leak in HTTP Error Responses
+**Vulnerability:** The application was resolving HTTP errors with the raw error object (`err`) in `src/app/api.service.ts`. This error object contains the full request URL, which includes the API key embedded in the query string, potentially leaking sensitive credentials to calling components and subsequently to the user interface or external logging services.
+**Learning:** Returning raw HTTP error objects directly to UI components can expose sensitive data (like API keys or internal endpoints) contained within the request context.
+**Prevention:** Always sanitize HTTP error responses before returning them from the API service layer. Return generic, safe error messages or objects (e.g., `{ error: 'Request failed' }`) to prevent information leakage.
