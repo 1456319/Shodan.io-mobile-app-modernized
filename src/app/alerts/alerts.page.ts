@@ -24,6 +24,7 @@ export class AlertsPage implements OnInit {
     this.api.getNetworkAlerts().then((alerts) => {
       // SECURITY: Removed console.log that was leaking network alert data in plain text
       this.alerts = alerts;
+    }).catch(() => {
     })
   }
 
@@ -73,6 +74,8 @@ export class AlertsPage implements OnInit {
               } else {
                 this.dialogBadAlert();
               }
+            }).catch(() => {
+              this.dialogBadAlert();
             })
             
           }
@@ -115,7 +118,8 @@ export class AlertsPage implements OnInit {
         }, {
           text: 'Yes',
           handler: () => {
-            this.api.deleteNetWorkAlert(item.id);
+            this.api.deleteNetWorkAlert(item.id).catch(() => {
+            });
             let index = this.alerts.indexOf(item);
             this.alerts.splice(index, 1);
           }

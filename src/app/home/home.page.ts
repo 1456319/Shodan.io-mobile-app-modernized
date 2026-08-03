@@ -230,6 +230,7 @@ export class HomePage {
   getQueries() {
     this.api.getQueries().then((res) => {
       this.queries = res['matches']
+    }).catch(() => {
     });
   }
 
@@ -240,6 +241,8 @@ export class HomePage {
   getMoreQueries(infiniteScroll) {
     this.api.getMoreQueries().then((res) => {
       this.queries = this.queries.concat(res['matches']);
+      infiniteScroll.target.complete();
+    }).catch(() => {
       infiniteScroll.target.complete();
     });
   }

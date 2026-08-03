@@ -29,6 +29,8 @@ export class HostResultsPage implements OnInit {
       this.item = res;
       this.selectedPort = null;
       this.loading.dismiss();
+    }).catch(() => {
+      this.loading.dismiss();
     });
   }
 

@@ -31,6 +31,8 @@ export class AskAPIKeyPage implements OnInit {
       } else {
         this.displayWrongKey();
       }
+    }).catch(() => {
+      this.displayWrongKey();
     })
   }
 
