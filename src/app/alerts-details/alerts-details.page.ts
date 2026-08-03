@@ -15,6 +15,7 @@ export class AlertsDetailsPage implements OnInit {
     var alertId = navExtrasService.getItem();
     this.api.getNetworkAlertInfo(alertId).then(result => {
       this.alert = result;
+    }).catch(() => {
     })
   }
 

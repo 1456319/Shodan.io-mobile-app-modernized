@@ -26,12 +26,12 @@ export class ApiService {
   async getHostDetails(ip: string) {
     var tmpUrl = this.apiUrl + "/shodan/host/" + encodeURIComponent(ip) + "?key=" + this.apiKey;
     // this.displayToastMessage("Fetching results for IP: " + ip + "...")
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.get(tmpUrl).subscribe(data => {
         resolve(data);
       },
       err => {
-        resolve(err);
+        reject({ error: 'Request failed' });
       });
     })
   }
@@ -42,12 +42,12 @@ export class ApiService {
   async search(query: string) {
     var tmpUrl = this.apiUrl + "/shodan/host/search?" + "query=" + encodeURIComponent(query) + "&key=" + this.apiKey;
     // this.displayToastMessage("Fetching results for " + query + "...")
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.get(tmpUrl).subscribe(data => {
         resolve(data);
       },
       err => {
-        resolve(err);
+        reject({ error: 'Request failed' });
       });
     })
   }
@@ -65,11 +65,11 @@ export class ApiService {
       fromObject: facets ? { ...paramsBase, facets } : paramsBase,
     });
 
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.get(this.apiUrl + "/shodan/host/count", { params }).subscribe(res => {
         resolve(res);
       }, err => {
-        resolve(err);
+        reject({ error: 'Request failed' });
       });
     });
   }
@@ -78,24 +78,24 @@ export class ApiService {
     this.pageResults++;
     var tmpUrl = this.apiUrl + "/shodan/host/search?" + "query=" + encodeURIComponent(query) + "&key=" + this.apiKey + "&page=" + this.pageResults;
     this.displayToastMessage("Fetching more results...");
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.get(tmpUrl).subscribe(data => {
         resolve(data);
       },
       err => {
-        resolve(err);
+        reject({ error: 'Request failed' });
       });
     });    
   }
 
   async getPorts() {
     var tmpUrl = this.apiUrl + "/shodan/ports?key=" + this.apiKey;
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.get(tmpUrl).subscribe(data => {
         resolve(data);
       },
       err => {
-        resolve(err);
+        reject({ error: 'Request failed' });
       });
     });
   }
@@ -106,12 +106,12 @@ export class ApiService {
   async getQueries() {
     var tmpUrl = this.apiUrl + "/shodan/query?key=" + this.apiKey + "&sort=votes";
     this.displayToastMessage("Fetching queries...");
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.get(tmpUrl).subscribe(data => {
         resolve(data);
       },
       err => {
-        resolve(err);
+        reject({ error: 'Request failed' });
       });
     });
   }
@@ -120,12 +120,12 @@ export class ApiService {
     this.pageQueries++;
     var tmpUrl = this.apiUrl + "/shodan/query?key=" + this.apiKey + "&sort=votes&page=" + this.pageQueries;
     // this.displayToastMessage("Fetching more queries...");
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.get(tmpUrl).subscribe(data => {
         resolve(data);
       },
       err => {
-        resolve(err);
+        reject({ error: 'Request failed' });
       });
     });    
   }
@@ -133,12 +133,12 @@ export class ApiService {
   async getNetworkAlerts() {
     var tmpUrl = this.apiUrl + "/shodan/alert/info?key=" + this.apiKey;
     this.displayToastMessage("Fetching network alerts...");
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.get(tmpUrl).subscribe(data => {
         resolve(data);
       },
       err => {
-        resolve(err);
+        reject({ error: 'Request failed' });
       })
     });
   }
@@ -148,13 +148,13 @@ export class ApiService {
     var tmpUrl = this.apiUrl + "/shodan/alert?key=" + this.apiKey;
     this.displayToastMessage("Creating network alert '" + data.name + "'");
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.post(tmpUrl, alert, { headers }).subscribe(result => {
         this.displayToastMessage("Created network alert '" + data.name + "' successfully!");
         resolve(result);
       },
       err => {
-        resolve(err);
+        reject({ error: 'Request failed' });
       })
     })
   }
@@ -163,12 +163,12 @@ export class ApiService {
     var tmpUrl = this.apiUrl + "/shodan/alert/" + encodeURIComponent(id) + "?key=" + this.apiKey;
     this.displayToastMessage("Deleting network alert " + id);
     let headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.delete(tmpUrl, { headers }).subscribe(result => {
         resolve(result);
       },
       err => {
-        resolve(err);
+        reject({ error: 'Request failed' });
       })
     })
   }
@@ -176,12 +176,12 @@ export class ApiService {
   async getNetworkAlertInfo(id: string) {
     var tmpUrl = this.apiUrl + "/shodan/alert/" + encodeURIComponent(id) + "/info?key=" + this.apiKey;
     this.displayToastMessage("Fetching info for alert " + id);
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.get(tmpUrl).subscribe(result => {
         resolve(result)
       },
       err => {
-        resolve(err);
+        reject({ error: 'Request failed' });
       })
     })
   }
@@ -189,12 +189,12 @@ export class ApiService {
   async getProfile() {
     var tmpUrl = this.apiUrl + "/account/profile?key=" + this.apiKey;
     this.displayToastMessage("Fetching profile data...");
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.get(tmpUrl).subscribe(data => {
         resolve(data);
       },
       err => {
-        resolve(err);
+        reject({ error: 'Request failed' });
       });
     });
   }
@@ -202,12 +202,12 @@ export class ApiService {
   async getAPIInfo() {
     var tmpUrl = this.apiUrl + "/api-info?key=" + this.apiKey;
     this.displayToastMessage("Fetching API key info...");
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.get(tmpUrl).subscribe(data => {
         resolve(data);
       },
       err => {
-        resolve(err);
+        reject({ error: 'Request failed' });
       })
     })
   }

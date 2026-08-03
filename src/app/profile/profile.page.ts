@@ -28,10 +28,12 @@ export class ProfilePage implements OnInit {
       this.profile = res;
       this.profile.created = this.profile.created.slice(0, -3);
       this.profile.created = this.profile.created + "Z";
+    }).catch(() => {
     });
     this.api.getAPIInfo().then((res) => {
       // console.log(res);
       this.info = res;
+    }).catch(() => {
     })
   }
 

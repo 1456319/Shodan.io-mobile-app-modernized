@@ -28,12 +28,15 @@ export class QueriesPage implements OnInit {
   getQueries() {
     this.api.getQueries().then((res) => {
       this.queries = res['matches']
+    }).catch(() => {
     });
   }
   
   getMoreQueries(infiniteScroll) {
     this.api.getMoreQueries().then((res) => {
       this.queries = this.queries.concat(res['matches']);
+      infiniteScroll.target.complete();
+    }).catch(() => {
       infiniteScroll.target.complete();
     });
   }
