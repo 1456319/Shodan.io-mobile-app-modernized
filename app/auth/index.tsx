@@ -80,6 +80,7 @@ export default function WelcomeScreen() {
               autoCapitalize="none"
               autoCorrect={false}
               autoComplete="off"
+              secureTextEntry
             />
             {manualError ? <Text variant="caption" color="error" style={{ marginTop: Spacing.sm }}>{manualError}</Text> : null}
             <Button
